@@ -1,0 +1,80 @@
+/* Khung bao ngoài danh sách */
+.user-list-container {
+    background-color: #fff;
+    border-right: 1px solid #ddd; 
+    height: 100%;
+  }
+  
+  /* Tiêu đề "Users List" */
+  .user-list-title {
+    padding: 15px;
+    font-size: 1rem;
+    border-bottom: 2px solid #f0f0f0;
+  }
+  
+  /* Danh sách (ul) */
+  .user-list {
+    list-style: none; /* Bỏ dấu chấm đầu dòng */
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Từng dòng user (li) */
+  .user-item {
+    display: flex;
+    justify-content: space-between; /* Tên bên trái, bong bóng bên phải */
+    align-items: center;
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee; /* Thay thế Divider */
+    flex-wrap: wrap; /* Cho phép xuống dòng nếu tên quá dài */
+    gap: 8px;
+    transition: background-color 0.2s;
+  }
+  
+  .user-item:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Link tên User */
+  .user-name-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    flex-grow: 1; /* Chiếm khoảng trống còn thừa */
+    min-width: 100px;
+  }
+  
+  .user-name-link:hover {
+    color: #1976d2; /* Màu xanh khi hover */
+  }
+  
+  /* Khu vực chứa 2 bong bóng */
+  .user-badges {
+    display: flex;
+    gap: 5px;
+  }
+  
+  /* Style chung cho bong bóng (Chip) */
+  .badge {
+    padding: 4px 10px;
+    border-radius: 16px; /* Bo tròn giống Chip */
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: white;
+    /* text-decoration: none; */
+    white-space: nowrap; /* Không cho chữ xuống dòng trong bong bóng */
+    transition: opacity 0.2s;
+  }
+  
+  /* .badge:hover {
+    opacity: 0.8;
+  } */
+  
+  /* Màu riêng cho từng loại */
+  .badge-photos {
+    background-color: #2e7d32; /* Màu xanh lá (Success) */
+  }
+  
+  .badge-comments {
+    background-color: #d32f2f; /* Màu đỏ (Error) */
+  }

@@ -31,16 +31,14 @@ const formatDate = (dateString) => {
 };
 
 function UserComments() {
-  const { userId } = useParams(); // Lấy ID của user cần xem comment
+  const { userId } = useParams(); 
   const navigate = useNavigate();
   
   const [comments, setComments] = useState([]);
   const [status, setStatus] = useState("Loading...");
 
-  // --- 1. Gọi API lấy danh sách comment ---
   useEffect(() => {
-    // Giả sử bạn đã tạo API này ở Backend (như hướng dẫn trước)
-    // Endpoint: /api/commentsOfUser/:userId
+    
     getData(`${API}/api/comment/commentsOfUser/${userId}`)
       .then((data) => {
         if (Array.isArray(data)) {
@@ -57,20 +55,16 @@ function UserComments() {
       });
   }, [userId]);
 
-  // --- 2. Xử lý khi click vào Comment ---
   const handleCommentClick = (photoOwnerId, photoId) => {
-    // Chuyển hướng đến trang xem ảnh chi tiết
-    // URL: /photos/{id_người_đăng_ảnh}/{id_bức_ảnh}
-    // Điều này tận dụng tính năng Deep Linking/Stepper của bài Extra Credit
+    
     navigate(`/photos/${photoOwnerId}/${photoId}`);
   };
 
   return (
     <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
-      {/* Nút Quay lại - Đã thay icon bằng text và thêm style button */}
       <Button
-        variant="contained" // Thêm variant để nút nổi bật hơn (có nền xanh)
-        color="primary"     // Màu sắc chủ đạo
+        variant="contained" 
+        color="primary"     
         onClick={() => navigate(-1)}
         style={{ marginBottom: "20px" }}
       >
@@ -94,11 +88,10 @@ function UserComments() {
               <React.Fragment key={index}>
                 <ListItem
                   alignItems="flex-start"
-                  button // Làm cho dòng này có thể click được
+                  button 
                   onClick={() => handleCommentClick(item.photo_owner_id, item.photo_id)}
                   style={{ cursor: "pointer" }}
                 >
-                  {/* Thumbnail của bức ảnh */}
                   <ListItemAvatar>
                     <Avatar
                       variant="rounded"
@@ -108,7 +101,6 @@ function UserComments() {
                     />
                   </ListItemAvatar>
 
-                  {/* Nội dung comment */}
                   <ListItemText
                     primary={
                       <Typography

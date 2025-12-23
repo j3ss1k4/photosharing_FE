@@ -37,11 +37,6 @@ export function UserDetail() {
   return (
     <>
       <Typography variant="body1">
-        This should be the UserDetail view of the PhotoShare app. Since it is
-        invoked from React Router the params from the route will be in property
-        match. So this should show details of user: {user.userId}. You can fetch
-        the model for the user from models.userModel.
-        <Divider />
         {status == "OK" ? (
           <div>
             First name: {userDetail.first_name}
@@ -54,11 +49,8 @@ export function UserDetail() {
             <br />
             Occupation: {userDetail.occupation}
             <br />
-            <br />
-            Occupation: {user.userId}
-            <br />
             <Link to={"../photos/" + user.userId}>My PhotoShare</Link>
-            <Button><Link to={"/edit/"+user.userId}>Edit</Link></Button>
+            {/* <Button><Link to={"/edit/"+user.userId}>Edit</Link></Button> */}
           </div>
           
         ) : (
@@ -91,19 +83,16 @@ export function Me({ setUser }) {
       });
   }
   function handleDelete() {
-    // Kiểm tra xem đã có thông tin user (đặc biệt là ID) chưa
     if (!info || !info._id) {
       alert("User information not loaded yet.");
       return;
     }
 
-    // Hỏi xác nhận trước khi xóa
     if (
       window.confirm(
         "Are you sure you want to delete your account? This cannot be undone."
       )
     ) {
-      // Gọi API: DELETE /api/users/:id
       handleData(API + "/api/users/" + info._id, "DELETE")
         .then((data) => {
           console.log("Delete response:", data);
@@ -241,7 +230,31 @@ export function Detail(){
         alert("Update failed" + e.message);
       });
   }
+  function handleDelete() {
+    if (!info || !info._id) {
+      alert("User information not loaded yet.");
+      return;
+    }
 
+    if (
+      window.confirm(
+        "Are you sure you want to delete your account? This cannot be undone."
+      )
+    ) {
+      handleData(API + "/api/users/" + info._id, "DELETE")
+        .then((data) => {
+          console.log("Delete response:", data);
+          alert("Delete successful");
+
+          // if (setUser) setUser(null);
+
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Delete failed: " + (err.message || "Unknown error"));
+        });
+    }
+  }
   useEffect(() => {
     getData(API + "/api/users/"+ userId)
       .then((data) => { 
@@ -330,13 +343,13 @@ export function Detail(){
         </label>
         <br />
         <button type="submit">Update me</button>
-        {/* <button
+        <button
           type="button"
           onClick={handleDelete}
           style={{ marginLeft: "10px", backgroundColor: "red", color: "white" }}
         >
           Delete User
-        </button> */}
+        </button>
       </form>
     </div>
   );

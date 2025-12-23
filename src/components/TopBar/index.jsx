@@ -61,7 +61,8 @@ function TopBar({ state, advancedFeatures, toggleAdvancedFeatures }) {
           ) : (
             <div>
               <Typography variant="h6" color="inherit">
-                <Link to="/me">{"Hi: " + state.first_name + "   "}</Link>
+                {/* <Link to="/me">{"Hi: " + state.first_name + "   "}</Link> */}
+                 {/* <div>{"Hi: " + state.first_name + "   "}</div> */}
                 <Link to="/addphoto"> Add Photo </Link>
                 <Link to="/logout"> Logout</Link>
               </Typography>

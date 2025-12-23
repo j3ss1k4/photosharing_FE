@@ -12,9 +12,6 @@ import { Navigate, useNavigate, Link } from "react-router-dom";
 import { API } from "../../App.js";
 import "./styles.css";
 
-/**
- * Define UserList, a React component of Project 4.
- */
 function UserList() {
   const [users, setUsers] = useState([]);
   const [status, setStatus] = useState("Loading...");
@@ -29,67 +26,42 @@ function UserList() {
       .catch((err) => {
         alert(err);
         setStatus("Error loading user list");
-        // navigate("/login");
       });
   }, []);
 
   return (
-    <div>
-      <Typography variant="body1" style={{ padding: "10px", fontWeight: "bold" }}>
+    <div className="user-list-container">
+      <div className="user-list-title">
         Users List
-      </Typography>
+      </div>
       
-      <List component="nav">
+      <ul className="user-list">
         {users.map((item) => (
-          <React.Fragment key={item._id}>
-            <ListItem 
-              alignItems="center"
-              // Sử dụng flex-wrap để nếu tên dài quá thì bong bóng xuống dòng
-              style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '5px' }}
-            >
-              {/* 1. Tên User */}
+          <li key={item._id} className="user-item">
+            <Link to={"/users/" + item._id} className="user-name-link">
+              {item.first_name} {item.last_name}
+            </Link>
+  
+            <div className="user-badges">
+              
               <Link 
-                to={"/users/" + item._id} 
-                style={{ textDecoration: 'none', color: 'inherit', flexGrow: 1, minWidth: '100px' }}
+                to={"/photos/" + item._id} 
+                className="badge badge-photos"
               >
-                <ListItemText primary={item.first_name + " " + item.last_name} />
+                 {item.photo_count || 0}
               </Link>
-
-              {/* Khu vực hiển thị 2 bong bóng (Dạng Text) */}
-              <div style={{ display: 'flex', gap: '5px' }}>
-                
-                {/* 2. Bong bóng Xanh (Photos) - Dạng Text */}
-                <Link to={"/photos/" + item._id} style={{ textDecoration: 'none' }}>
-                    <Chip
-                        // Thay icon bằng text trực tiếp trong label
-                        label={`Photos: ${item.photo_count || 0}`}
-                        color="success" // Màu xanh lá
-                        size="small"
-                        clickable
-                        variant="filled"
-                        style={{ fontSize: '0.75rem', fontWeight: 'bold' }}
-                    />
-                </Link>
-
-                {/* 3. Bong bóng Đỏ (Comments) - Dạng Text */}
-                <Link to={"/comments/" + item._id} style={{ textDecoration: 'none' }}>
-                    <Chip
-                        // Thay icon bằng text (Cmts là viết tắt của Comments)
-                        label={`Cmts: ${item.comment_count || 0}`}
-                        color="error" // Màu đỏ
-                        size="small"
-                        clickable
-                        variant="filled"
-                        style={{ fontSize: '0.75rem', fontWeight: 'bold' }}
-                    />
-                </Link>
-
-              </div>
-            </ListItem>
-            <Divider />
-          </React.Fragment>
+  
+              <Link 
+                to={"/comments/" + item._id} 
+                className="badge badge-comments"
+              >
+                 {item.comment_count || 0}
+              </Link>
+              
+            </div>
+          </li>
         ))}
-      </List>
+      </ul>
     </div>
   );
 }
